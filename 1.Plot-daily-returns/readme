@@ -1,0 +1,16 @@
+Data description:
+The given data contains 5 variables- ‘Date’,  ‘Platinum’, ‘Silver’, ‘Palladium’ and ‘Gold’. 
+The ‘Date’ variable is of integer data type with day as the unit of measurement. The dates from 8/15/2015 to 8/15/2019. 
+The four variables represents daily price of the respective commodities during the time period mentioned. These four variables are of double data type. 
+
+Data processing:
+The variable Gold is plotted on a time series Line graph. A new variable DR_Gold is created to show the daily returns of Gold commodity. 
+
+<DR_Gold= 100* (Gold-L.Gold)/L.Gold>
+
+DR_Gold is of float type. A histogram of DR_Gold is generated. A summary statistics of DR_Gold is generated. 
+
+Conclusion:
+The skewness is found to be 0.314. That shows the series has a positive skew. It has a slightly longer upper tail than lower tail. 
+The coefficient of excess kurtosis (coefficient of kurtosis – 3) of DR_Gold is found to be  1.193. As the coefficient of excess kurtosis is greater than zero, 
+the distribution is leptokurtic, ie, is more peaked at the mean than a normally distributed random variable with the same mean and variance, and has fatter tails.
