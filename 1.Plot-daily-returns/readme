@@ -6,7 +6,7 @@ The four variables represents daily price of the respective commodities during t
 Data processing:
 The variable Gold is plotted on a time series Line graph. A new variable DR_Gold is created to show the daily returns of Gold commodity. 
 
-<DR_Gold= 100* (Gold-L.Gold)/L.Gold>
+> DR_Gold= 100* (Gold-L.Gold)/L.Gold
 
 DR_Gold is of float type. A histogram of DR_Gold is generated. A summary statistics of DR_Gold is generated. 
 
