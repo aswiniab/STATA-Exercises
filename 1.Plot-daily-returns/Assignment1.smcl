@@ -1,0 +1,71 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}G:\ECON803\Assignment1\Redo2\Assignment1.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 9 Sep 2019, 17:41:02
+
+{com}. import excel "G:\ECON803\Assignment1\precious metals.xlsx", sheet("Sheet1") firstrow
+{res}
+{com}. tsset Date
+{res}{txt}{col 9}time variable:  {res}{col 25}Date, 8/15/2017 to 8/15/2019, but with gaps
+{txt}{col 17}delta:  {res}1 day
+
+{com}. describe
+
+{txt}Contains data
+  obs:{res}           521                          
+{txt} vars:{res}             5                          
+{txt} size:{res}        17,714                          
+{txt}{hline}
+              storage   display    value
+variable name   type    format     label      variable label
+{hline}
+{p 0 48}{res}{bind:Date           }{txt}{bind: int     }{bind:{txt}%td..     }{space 1}{bind:         }{bind:  }{res}{res}Date{p_end}
+{p 0 48}{bind:Platinum       }{txt}{bind: double  }{bind:{txt}%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}Platinum{p_end}
+{p 0 48}{bind:Silver         }{txt}{bind: double  }{bind:{txt}%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}Silver{p_end}
+{p 0 48}{bind:Palladium      }{txt}{bind: double  }{bind:{txt}%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}Palladium{p_end}
+{p 0 48}{bind:Gold           }{txt}{bind: double  }{bind:{txt}%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}Gold{p_end}
+{txt}{hline}
+Sorted by: {res}Date
+     Note: Dataset has changed since last saved.
+
+{com}. twoway (tsline Gold)
+{res}
+{com}. graph export "G:\ECON803\Assignment1\Redo2\Gold_LineGraph.pdf", as(pdf) replace
+{txt}(file G:\ECON803\Assignment1\Redo2\Gold_LineGraph.pdf written in PDF format)
+
+{com}. generate DR_Gold = 100*(Gold-L.Gold)/L.Gold
+{txt}(105 missing values generated)
+
+{com}. histogram DR_Gold
+{txt}(bin={res}20{txt}, start={res}-1.7899789{txt}, width={res}.21397608{txt})
+{res}
+{com}. graph export "G:\ECON803\Assignment1\Redo2\DR_Gold_Histogram.pdf", as(pdf) replace
+{txt}(file G:\ECON803\Assignment1\Redo2\DR_Gold_Histogram.pdf written in PDF format)
+
+{com}. summarize DR_Gold, detail
+
+                           {txt}DR_Gold
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}-1.489907      -1.789979
+{txt} 5%    {res}-1.079029      -1.748763
+{txt}10%    {res}-.7535731      -1.611269       {txt}Obs         {res}        416
+{txt}25%    {res}-.3465759      -1.513721       {txt}Sum of Wgt. {res}        416
+
+{txt}50%    {res} .0382918                      {txt}Mean          {res} .0372904
+                        {txt}Largest       Std. Dev.     {res}  .649186
+{txt}75%    {res} .3883667       2.062659
+{txt}90%    {res} .7557692       2.220996       {txt}Variance      {res} .4214425
+{txt}95%    {res} 1.094606       2.452314       {txt}Skewness      {res} .3141998
+{txt}99%    {res} 1.876351       2.489543       {txt}Kurtosis      {res} 4.192713
+
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}G:\ECON803\Assignment1\Redo2\Assignment1.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 9 Sep 2019, 17:47:05
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
