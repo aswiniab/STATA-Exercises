@@ -1,0 +1,922 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}G:\ECON803\Assignment4\Assignment4.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 7 Oct 2019, 15:11:55
+
+{com}. import excel "G:\ECON803\Assignment4\macro-2.xls", sheet("macro") firstrow
+{res}
+{com}. codebook Date
+
+{txt}{hline}
+{res}Date{right:Date}
+{txt}{hline}
+
+{col 19}type:  numeric daily date ({res}int{txt})
+
+{col 18}range:  [{res}9556{txt},{res}21244{txt}]{col 55}units:  {res}1
+{col 8}{txt}or equivalently:  [{res}01mar1986{txt},{res}01mar2018{txt}]{col 55}units:  {res}days
+{col 10}{txt}unique values:  {res}385{col 51}{txt}missing .:  {res}0{txt}/{res}385
+
+{txt}{col 19}mean:{res}{col 26}   15401{txt} = {res}02mar2002{txt} (+ 1 hour)
+{col 15}std. dev:{res}{col 26} 3387.25
+
+{txt}{col 12}percentiles:{col 32}10%{col 42}25%{col 52}50%{col 62}75%{col 72}90%
+{res}{col 27}   10713{col 37}   12478{col 47}   15400{col 57}   18322{col 67}   20089
+{col 26}01may1989{col 36}01mar1994{col 46}01mar2002{col 56}01mar2010{col 66}01jan2015
+
+{com}. 
+. generate Month = mofd(Date)
+
+. 
+. format %tm Month
+
+. 
+. tsset Month, monthly
+{res}{txt}{col 9}time variable:  {res}{col 25}Month, 1986m3 to 2018m3
+{txt}{col 17}delta:  {res}1 month
+
+{com}. 
+. twoway (tsline CPI)
+{res}
+{com}. graph export "G:\ECON803\Assignment4\CPI_LineGraph.pdf", as(pdf) replace
+{txt}(file G:\ECON803\Assignment4\CPI_LineGraph.pdf written in PDF format)
+
+{com}. corrgram CPI, lags(12)
+
+{txt}{col 43}-1       0       1 -1       0       1
+ LAG       AC       PAC      Q     Prob>Q  [Autocorrelation]  [Partial Autocor]
+{hline 79}
+1     {res}{col 9} 0.9922{col 18} 0.9995{col 27} 381.99{col 36}0.0000{col 44}        {c LT}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1} {col 63}        {c LT}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1} 
+{txt}2     {res}{col 9} 0.9843{col 18}-0.4758{col 27} 758.87{col 36}0.0000{col 44}        {c LT}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1} {col 63}     {hline 1}{hline 1}{hline 1}{c RT}        
+{txt}3     {res}{col 9} 0.9764{col 18} 0.2347{col 27} 1130.7{col 36}0.0000{col 44}        {c LT}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1} {col 63}        {c LT}{hline 1}       
+{txt}4     {res}{col 9} 0.9687{col 18} 0.0788{col 27} 1497.7{col 36}0.0000{col 44}        {c LT}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1} {col 63}        {c |}        
+{txt}5     {res}{col 9} 0.9609{col 18} 0.0260{col 27} 1859.7{col 36}0.0000{col 44}        {c LT}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1} {col 63}        {c |}        
+{txt}6     {res}{col 9} 0.9531{col 18} 0.1320{col 27} 2216.8{col 36}0.0000{col 44}        {c LT}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1} {col 63}        {c LT}{hline 1}       
+{txt}7     {res}{col 9} 0.9453{col 18} 0.1069{col 27}   2569{col 36}0.0000{col 44}        {c LT}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1} {col 63}        {c |}        
+{txt}8     {res}{col 9} 0.9376{col 18} 0.0717{col 27} 2916.5{col 36}0.0000{col 44}        {c LT}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1} {col 63}        {c |}        
+{txt}9     {res}{col 9} 0.9300{col 18} 0.1866{col 27} 3259.3{col 36}0.0000{col 44}        {c LT}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1} {col 63}        {c LT}{hline 1}       
+{txt}10    {res}{col 9} 0.9224{col 18} 0.0709{col 27} 3597.3{col 36}0.0000{col 44}        {c LT}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1} {col 63}        {c |}        
+{txt}11    {res}{col 9} 0.9147{col 18}-0.1324{col 27} 3930.6{col 36}0.0000{col 44}        {c LT}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1} {col 63}       {hline 1}{c RT}        
+{txt}12    {res}{col 9} 0.9070{col 18}-0.1316{col 27} 4259.2{col 36}0.0000{col 44}        {c LT}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1}{hline 1} {col 63}       {hline 1}{c RT}        
+
+{com}. 
+. ac CPI, lags(12)
+{res}
+{com}. graph export "G:\ECON803\Assignment4\CPI_AC_Graph.pdf", as(pdf) replace
+{txt}(file G:\ECON803\Assignment4\CPI_AC_Graph.pdf written in PDF format)
+
+{com}. pac CPI, lags(12)
+{res}
+{com}. graph export "G:\ECON803\Assignment4\CPI_PAC_Graph.pdf", as(pdf) replace
+{txt}(file G:\ECON803\Assignment4\CPI_PAC_Graph.pdf written in PDF format)
+
+{com}. generate inflation=100*(CPI-L.CPI)/L.CPI
+{txt}(1 missing value generated)
+
+{com}. 
+. twoway(tsline inflation)
+{res}
+{com}. graph export "G:\ECON803\Assignment4\inflation_lineGraph.pdf", as(pdf) replace
+{txt}(file G:\ECON803\Assignment4\inflation_lineGraph.pdf written in PDF format)
+
+{com}. corrgram inflation, lags(12)
+
+{txt}{col 43}-1       0       1 -1       0       1
+ LAG       AC       PAC      Q     Prob>Q  [Autocorrelation]  [Partial Autocor]
+{hline 79}
+1     {res}{col 9} 0.4657{col 18} 0.4657{col 27} 83.916{col 36}0.0000{col 44}        {c LT}{hline 1}{hline 1}{hline 1}     {col 63}        {c LT}{hline 1}{hline 1}{hline 1}     
+{txt}2     {res}{col 9} 0.0611{col 18}-0.2009{col 27} 85.364{col 36}0.0000{col 44}        {c |}        {col 63}       {hline 1}{c RT}        
+{txt}3     {res}{col 9}-0.0931{col 18}-0.0475{col 27} 88.736{col 36}0.0000{col 44}        {c |}        {col 63}        {c |}        
+{txt}4     {res}{col 9}-0.0883{col 18}-0.0022{col 27} 91.779{col 36}0.0000{col 44}        {c |}        {col 63}        {c |}        
+{txt}5     {res}{col 9}-0.0899{col 18}-0.0716{col 27} 94.939{col 36}0.0000{col 44}        {c |}        {col 63}        {c |}        
+{txt}6     {res}{col 9}-0.1030{col 18}-0.0606{col 27} 99.099{col 36}0.0000{col 44}        {c |}        {col 63}        {c |}        
+{txt}7     {res}{col 9}-0.0686{col 18} 0.0017{col 27} 100.95{col 36}0.0000{col 44}        {c |}        {col 63}        {c |}        
+{txt}8     {res}{col 9}-0.1199{col 18}-0.1412{col 27} 106.62{col 36}0.0000{col 44}        {c |}        {col 63}       {hline 1}{c RT}        
+{txt}9     {res}{col 9}-0.1061{col 18}-0.0105{col 27} 111.07{col 36}0.0000{col 44}        {c |}        {col 63}        {c |}        
+{txt}10    {res}{col 9} 0.0923{col 18} 0.1877{col 27} 114.45{col 36}0.0000{col 44}        {c |}        {col 63}        {c LT}{hline 1}       
+{txt}11    {res}{col 9} 0.2817{col 18} 0.1648{col 27} 145.98{col 36}0.0000{col 44}        {c LT}{hline 1}{hline 1}      {col 63}        {c LT}{hline 1}       
+{txt}12    {res}{col 9} 0.3315{col 18} 0.1353{col 27} 189.78{col 36}0.0000{col 44}        {c LT}{hline 1}{hline 1}      {col 63}        {c LT}{hline 1}       
+
+{com}. 
+. ac inflation, lags(12)
+{res}
+{com}. graph export "G:\ECON803\Assignment4\inflation_AC_Graph.pdf", as(pdf) replace
+{txt}(file G:\ECON803\Assignment4\inflation_AC_Graph.pdf written in PDF format)
+
+{com}. pac inflation, lags(12)
+{res}
+{com}. graph export "G:\ECON803\Assignment4\inflation_PAC_Graph.pdf", as(pdf) replace
+{txt}(file G:\ECON803\Assignment4\inflation_PAC_Graph.pdf written in PDF format)
+
+{com}. arima inflation if Month<=tm(2015m12), arima(0,0,1)
+
+{txt}(setting optimization to BHHH)
+{res}{txt}Iteration 0:{col 16}log likelihood = {res} -62.95024{txt}  
+{res}{txt}Iteration 1:{col 16}log likelihood = {res}-60.709044{txt}  
+{res}{txt}Iteration 2:{col 16}log likelihood = {res}-60.243323{txt}  
+{res}{txt}Iteration 3:{col 16}log likelihood = {res}-60.177962{txt}  
+{res}{txt}Iteration 4:{col 16}log likelihood = {res}-60.162205{txt}  
+{res}{txt}(switching optimization to BFGS)
+{res}{txt}Iteration 5:{col 16}log likelihood = {res}-60.159501{txt}  
+{res}{txt}Iteration 6:{col 16}log likelihood = {res}-60.158452{txt}  
+{res}{txt}Iteration 7:{col 16}log likelihood = {res}-60.158406{txt}  
+{res}{txt}Iteration 8:{col 16}log likelihood = {res}-60.158406{txt}  
+{res}
+{txt}ARIMA regression
+
+Sample:  {res}1986m4 - 2015m12                       {txt}Number of obs     = {res}       357
+                                                {txt}Wald chi2({res}1{txt})      =  {res}   213.90
+{txt}Log likelihood = {res}-60.15841                      {txt}Prob > chi2       =     {res}0.0000
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}      OPG
+{col 1}   inflation{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}inflation    {txt}{c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} .2173113{col 26}{space 2} .0233656{col 37}{space 1}    9.30{col 46}{space 3}0.000{col 54}{space 4} .1715156{col 67}{space 3}  .263107
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}ARMA         {txt}{c |}
+{space 10}ma {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .4852325{col 26}{space 2} .0331778{col 37}{space 1}   14.63{col 46}{space 3}0.000{col 54}{space 4} .4202051{col 67}{space 3} .5502599
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+      /sigma {c |}{col 14}{res}{space 2}  .286275{col 26}{space 2} .0076774{col 37}{space 1}   37.29{col 46}{space 3}0.000{col 54}{space 4} .2712276{col 67}{space 3} .3013224
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 0 79}Note: The test of the variance against zero is one sided, and the two-sided confidence interval is truncated at zero.{p_end}
+
+{com}. 
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+{txt}{hline 13}{c TT}{hline 63}
+       Model {c |}        Obs  ll(null)  ll(model)      df         AIC        BIC
+{hline 13}{c +}{hline 63}
+{ralign 12:.}{col 14}{c |}{res}{col 16}       357{col 27}        .{col 38}-60.15841{col 49}     3{col 58} 126.3168{col 69}   137.95
+{txt}{hline 13}{c BT}{hline 63}
+{p 15 21 2}
+Note: N=Obs used in calculating BIC; see {helpb bic_note:[R] BIC note}.
+{p_end}
+
+{com}. 
+. arima inflation if Month<=tm(2015m12), arima(0,0,3)
+
+{txt}(setting optimization to BHHH)
+{res}{txt}Iteration 0:{col 16}log likelihood = {res}-59.785518{txt}  
+{res}{txt}Iteration 1:{col 16}log likelihood = {res}-55.131774{txt}  
+{res}{txt}Iteration 2:{col 16}log likelihood = {res}-54.623046{txt}  
+{res}{txt}Iteration 3:{col 16}log likelihood = {res}-54.517824{txt}  
+{res}{txt}Iteration 4:{col 16}log likelihood = {res}-54.489565{txt}  
+{res}{txt}(switching optimization to BFGS)
+{res}{txt}Iteration 5:{col 16}log likelihood = {res}-54.478604{txt}  
+{res}{txt}Iteration 6:{col 16}log likelihood = {res}-54.470901{txt}  
+{res}{txt}Iteration 7:{col 16}log likelihood = {res}-54.470466{txt}  
+{res}{txt}Iteration 8:{col 16}log likelihood = {res}-54.470429{txt}  
+{res}{txt}Iteration 9:{col 16}log likelihood = {res}-54.470429{txt}  
+{res}
+{txt}ARIMA regression
+
+Sample:  {res}1986m4 - 2015m12                       {txt}Number of obs     = {res}       357
+                                                {txt}Wald chi2({res}3{txt})      =  {res}   243.03
+{txt}Log likelihood = {res}-54.47043                      {txt}Prob > chi2       =     {res}0.0000
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}      OPG
+{col 1}   inflation{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}inflation    {txt}{c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} .2166908{col 26}{space 2} .0258476{col 37}{space 1}    8.38{col 46}{space 3}0.000{col 54}{space 4} .1660304{col 67}{space 3} .2673512
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}ARMA         {txt}{c |}
+{space 10}ma {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .5674432{col 26}{space 2} .0411058{col 37}{space 1}   13.80{col 46}{space 3}0.000{col 54}{space 4} .4868773{col 67}{space 3} .6480092
+{txt}{space 9}L2. {c |}{col 14}{res}{space 2} .1592818{col 26}{space 2} .0523288{col 37}{space 1}    3.04{col 46}{space 3}0.002{col 54}{space 4} .0567192{col 67}{space 3} .2618443
+{txt}{space 9}L3. {c |}{col 14}{res}{space 2}-.0539388{col 26}{space 2} .0430802{col 37}{space 1}   -1.25{col 46}{space 3}0.211{col 54}{space 4}-.1383744{col 67}{space 3} .0304968
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+      /sigma {c |}{col 14}{res}{space 2} .2817168{col 26}{space 2}  .007875{col 37}{space 1}   35.77{col 46}{space 3}0.000{col 54}{space 4}  .266282{col 67}{space 3} .2971516
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 0 79}Note: The test of the variance against zero is one sided, and the two-sided confidence interval is truncated at zero.{p_end}
+
+{com}. 
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+{txt}{hline 13}{c TT}{hline 63}
+       Model {c |}        Obs  ll(null)  ll(model)      df         AIC        BIC
+{hline 13}{c +}{hline 63}
+{ralign 12:.}{col 14}{c |}{res}{col 16}       357{col 27}        .{col 38}-54.47043{col 49}     5{col 58} 118.9409{col 69} 138.3295
+{txt}{hline 13}{c BT}{hline 63}
+{p 15 21 2}
+Note: N=Obs used in calculating BIC; see {helpb bic_note:[R] BIC note}.
+{p_end}
+
+{com}. 
+. arima inflation if Month<=tm(2015m12), arima(1,0,1)
+
+{txt}(setting optimization to BHHH)
+{res}{txt}Iteration 0:{col 16}log likelihood = {res}-62.029733{txt}  
+{res}{txt}Iteration 1:{col 16}log likelihood = {res}-56.632847{txt}  
+{res}{txt}Iteration 2:{col 16}log likelihood = {res}-56.310935{txt}  
+{res}{txt}Iteration 3:{col 16}log likelihood = {res}-56.306051{txt}  
+{res}{txt}Iteration 4:{col 16}log likelihood = {res}-56.305302{txt}  
+{res}{txt}(switching optimization to BFGS)
+{res}{txt}Iteration 5:{col 16}log likelihood = {res}-56.305168{txt}  
+{res}{txt}Iteration 6:{col 16}log likelihood = {res}-56.305136{txt}  
+{res}{txt}Iteration 7:{col 16}log likelihood = {res}-56.305131{txt}  
+{res}
+{txt}ARIMA regression
+
+Sample:  {res}1986m4 - 2015m12                       {txt}Number of obs     = {res}       357
+                                                {txt}Wald chi2({res}2{txt})      =  {res}   206.46
+{txt}Log likelihood = {res}-56.30513                      {txt}Prob > chi2       =     {res}0.0000
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}      OPG
+{col 1}   inflation{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}inflation    {txt}{c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} .2165147{col 26}{space 2}  .027135{col 37}{space 1}    7.98{col 46}{space 3}0.000{col 54}{space 4} .1633312{col 67}{space 3} .2696983
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}ARMA         {txt}{c |}
+{space 10}ar {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .2641688{col 26}{space 2} .0725568{col 37}{space 1}    3.64{col 46}{space 3}0.000{col 54}{space 4} .1219601{col 67}{space 3} .4063775
+{txt}{space 12} {c |}
+{space 10}ma {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .2969737{col 26}{space 2} .0714502{col 37}{space 1}    4.16{col 46}{space 3}0.000{col 54}{space 4} .1569339{col 67}{space 3} .4370136
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+      /sigma {c |}{col 14}{res}{space 2} .2831843{col 26}{space 2} .0078878{col 37}{space 1}   35.90{col 46}{space 3}0.000{col 54}{space 4} .2677245{col 67}{space 3}  .298644
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 0 79}Note: The test of the variance against zero is one sided, and the two-sided confidence interval is truncated at zero.{p_end}
+
+{com}. 
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+{txt}{hline 13}{c TT}{hline 63}
+       Model {c |}        Obs  ll(null)  ll(model)      df         AIC        BIC
+{hline 13}{c +}{hline 63}
+{ralign 12:.}{col 14}{c |}{res}{col 16}       357{col 27}        .{col 38}-56.30513{col 49}     4{col 58} 120.6103{col 69} 136.1212
+{txt}{hline 13}{c BT}{hline 63}
+{p 15 21 2}
+Note: N=Obs used in calculating BIC; see {helpb bic_note:[R] BIC note}.
+{p_end}
+
+{com}. 
+. arima inflation if Month<=tm(2015m12), arima(2,0,2)
+
+{txt}(setting optimization to BHHH)
+{res}{txt}Iteration 0:{col 16}log likelihood = {res}-55.442112{txt}  
+{res}{txt}Iteration 1:{col 16}log likelihood = {res}-54.081837{txt}  
+{res}{txt}Iteration 2:{col 16}log likelihood = {res}-53.807633{txt}  
+{res}{txt}Iteration 3:{col 16}log likelihood = {res}-53.721033{txt}  
+{res}{txt}Iteration 4:{col 16}log likelihood = {res} -53.68045{txt}  
+{res}{txt}(switching optimization to BFGS)
+{res}{txt}Iteration 5:{col 16}log likelihood = {res}-53.672312{txt}  
+{res}{txt}Iteration 6:{col 16}log likelihood = {res}-53.660607{txt}  
+{res}{txt}Iteration 7:{col 16}log likelihood = {res}-53.659832{txt}  
+{res}{txt}Iteration 8:{col 16}log likelihood = {res}-53.659808{txt}  
+{res}{txt}Iteration 9:{col 16}log likelihood = {res}-53.659808{txt}  
+{res}
+{txt}ARIMA regression
+
+Sample:  {res}1986m4 - 2015m12                       {txt}Number of obs     = {res}       357
+                                                {txt}Wald chi2({res}4{txt})      =  {res}   384.24
+{txt}Log likelihood = {res}-53.65981                      {txt}Prob > chi2       =     {res}0.0000
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}      OPG
+{col 1}   inflation{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}inflation    {txt}{c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} .2179535{col 26}{space 2} .0214039{col 37}{space 1}   10.18{col 46}{space 3}0.000{col 54}{space 4} .1760026{col 67}{space 3} .2599045
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}ARMA         {txt}{c |}
+{space 10}ar {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} 1.038991{col 26}{space 2} .1721592{col 37}{space 1}    6.04{col 46}{space 3}0.000{col 54}{space 4} .7015647{col 67}{space 3} 1.376416
+{txt}{space 9}L2. {c |}{col 14}{res}{space 2}-.3527377{col 26}{space 2} .0864164{col 37}{space 1}   -4.08{col 46}{space 3}0.000{col 54}{space 4}-.5221107{col 67}{space 3}-.1833648
+{txt}{space 12} {c |}
+{space 10}ma {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-.4792947{col 26}{space 2}  .189186{col 37}{space 1}   -2.53{col 46}{space 3}0.011{col 54}{space 4}-.8500925{col 67}{space 3}-.1084969
+{txt}{space 9}L2. {c |}{col 14}{res}{space 2}-.0939461{col 26}{space 2} .1183906{col 37}{space 1}   -0.79{col 46}{space 3}0.427{col 54}{space 4}-.3259875{col 67}{space 3} .1380953
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+      /sigma {c |}{col 14}{res}{space 2} .2810742{col 26}{space 2}  .008212{col 37}{space 1}   34.23{col 46}{space 3}0.000{col 54}{space 4} .2649789{col 67}{space 3} .2971694
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 0 79}Note: The test of the variance against zero is one sided, and the two-sided confidence interval is truncated at zero.{p_end}
+
+{com}. 
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+{txt}{hline 13}{c TT}{hline 63}
+       Model {c |}        Obs  ll(null)  ll(model)      df         AIC        BIC
+{hline 13}{c +}{hline 63}
+{ralign 12:.}{col 14}{c |}{res}{col 16}       357{col 27}        .{col 38}-53.65981{col 49}     6{col 58} 119.3196{col 69}  142.586
+{txt}{hline 13}{c BT}{hline 63}
+{p 15 21 2}
+Note: N=Obs used in calculating BIC; see {helpb bic_note:[R] BIC note}.
+{p_end}
+
+{com}. 
+. arima inflation if Month<=tm(2015m12), arima(0,0,2)
+
+{txt}(setting optimization to BHHH)
+{res}{txt}Iteration 0:{col 16}log likelihood = {res}-60.175909{txt}  
+{res}{txt}Iteration 1:{col 16}log likelihood = {res}-55.156226{txt}  
+{res}{txt}Iteration 2:{col 16}log likelihood = {res}-54.933798{txt}  
+{res}{txt}Iteration 3:{col 16}log likelihood = {res}-54.901914{txt}  
+{res}{txt}Iteration 4:{col 16}log likelihood = {res}-54.893905{txt}  
+{res}{txt}(switching optimization to BFGS)
+{res}{txt}Iteration 5:{col 16}log likelihood = {res}-54.891831{txt}  
+{res}{txt}Iteration 6:{col 16}log likelihood = {res}-54.890976{txt}  
+{res}{txt}Iteration 7:{col 16}log likelihood = {res}-54.890895{txt}  
+{res}{txt}Iteration 8:{col 16}log likelihood = {res}-54.890894{txt}  
+{res}
+{txt}ARIMA regression
+
+Sample:  {res}1986m4 - 2015m12                       {txt}Number of obs     = {res}       357
+                                                {txt}Wald chi2({res}2{txt})      =  {res}   232.78
+{txt}Log likelihood = {res}-54.89089                      {txt}Prob > chi2       =     {res}0.0000
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}      OPG
+{col 1}   inflation{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}inflation    {txt}{c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} .2164524{col 26}{space 2} .0270655{col 37}{space 1}    8.00{col 46}{space 3}0.000{col 54}{space 4} .1634051{col 67}{space 3} .2694998
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}ARMA         {txt}{c |}
+{space 10}ma {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .5804707{col 26}{space 2} .0427699{col 37}{space 1}   13.57{col 46}{space 3}0.000{col 54}{space 4} .4966433{col 67}{space 3} .6642982
+{txt}{space 9}L2. {c |}{col 14}{res}{space 2} .1873694{col 26}{space 2} .0523752{col 37}{space 1}    3.58{col 46}{space 3}0.000{col 54}{space 4}  .084716{col 67}{space 3} .2900228
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+      /sigma {c |}{col 14}{res}{space 2} .2820513{col 26}{space 2} .0077499{col 37}{space 1}   36.39{col 46}{space 3}0.000{col 54}{space 4} .2668618{col 67}{space 3} .2972408
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 0 79}Note: The test of the variance against zero is one sided, and the two-sided confidence interval is truncated at zero.{p_end}
+
+{com}. 
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+{txt}{hline 13}{c TT}{hline 63}
+       Model {c |}        Obs  ll(null)  ll(model)      df         AIC        BIC
+{hline 13}{c +}{hline 63}
+{ralign 12:.}{col 14}{c |}{res}{col 16}       357{col 27}        .{col 38}-54.89089{col 49}     4{col 58} 117.7818{col 69} 133.2927
+{txt}{hline 13}{c BT}{hline 63}
+{p 15 21 2}
+Note: N=Obs used in calculating BIC; see {helpb bic_note:[R] BIC note}.
+{p_end}
+
+{com}. 
+. estat aroots, dlabel
+{res}
+{txt}{col 4}Eigenvalue stability condition
+{col 3}{text}{c TLC}{hline 26}{c TT}{hline 13}{c TRC}
+{col 3}{text}{c |}        Eigenvalue       {col 30}{c |}   Modulus  {col 44}{c |}
+{res}{col 3}{text}{c LT}{hline 26}{c +}{hline 13}{c RT}
+{col 3}{text}{c |}{result}{space 1} -.2902354{col 16}+   .321143{it:i}{col 30}{text}{c |}{result}{space 2} .432862{col 44}{text}{c |}
+{res}{col 3}{text}{c |}{result}{space 1} -.2902354{col 16}-   .321143{it:i}{col 30}{text}{c |}{result}{space 2} .432862{col 44}{text}{c |}
+{res}{col 3}{text}{c BLC}{hline 26}{c BT}{hline 13}{c BRC}
+{res}{txt}{col 4}All the eigenvalues lie inside the unit circle.
+{col 4}MA parameters satisfy invertibility condition.
+{res}
+{com}. graph export "G:\ECON803\Assignment4\inflation_MA(2)_roots_Graph.pdf", as(pdf) replace
+{txt}(file G:\ECON803\Assignment4\inflation_MA(2)_roots_Graph.pdf written in PDF format)
+
+{com}. predict inflation_stat, xb
+
+. 
+. predict inflation_dyn, xb dynamic(tm(2016m1))
+
+. 
+. twoway (tsline inflation if Month>tm(2015m12), lcolor(black) lpattern(solid)) (tsline inflation_stat if Month>tm(2015m12), lcolor(green) lpattern(dash)) (tsline inflation_dyn if Month>tm(2015m12), lcolor(blue) lpattern(longdash))
+{res}
+{com}. graph export "G:\ECON803\Assignment4\predictions2_Graph.pdf", as(pdf) replace
+{txt}(file G:\ECON803\Assignment4\predictions2_Graph.pdf written in PDF format)
+
+{com}. generate dinflation=inflation-L.inflation
+{txt}(2 missing values generated)
+
+{com}. 
+. twoway (tsline dinflation)
+{res}
+{com}. 
+. corrgram dinflation, lags(24)
+
+{txt}{col 43}-1       0       1 -1       0       1
+ LAG       AC       PAC      Q     Prob>Q  [Autocorrelation]  [Partial Autocor]
+{hline 79}
+1     {res}{col 9}-0.1176{col 18}-0.1177{col 27} 5.3372{col 36}0.0209{col 44}        {c |}        {col 63}        {c |}        
+{txt}2     {res}{col 9}-0.2326{col 18}-0.2508{col 27} 26.272{col 36}0.0000{col 44}       {hline 1}{c RT}        {col 63}      {hline 1}{hline 1}{c RT}        
+{txt}3     {res}{col 9}-0.1544{col 18}-0.2371{col 27} 35.524{col 36}0.0000{col 44}       {hline 1}{c RT}        {col 63}       {hline 1}{c RT}        
+{txt}4     {res}{col 9} 0.0077{col 18}-0.1350{col 27} 35.547{col 36}0.0000{col 44}        {c |}        {col 63}       {hline 1}{c RT}        
+{txt}5     {res}{col 9} 0.0135{col 18}-0.1322{col 27} 35.618{col 36}0.0000{col 44}        {c |}        {col 63}       {hline 1}{c RT}        
+{txt}6     {res}{col 9}-0.0482{col 18}-0.1723{col 27} 36.529{col 36}0.0000{col 44}        {c |}        {col 63}       {hline 1}{c RT}        
+{txt}7     {res}{col 9} 0.0805{col 18}-0.0247{col 27}  39.07{col 36}0.0000{col 44}        {c |}        {col 63}        {c |}        
+{txt}8     {res}{col 9}-0.0610{col 18}-0.1536{col 27} 40.531{col 36}0.0000{col 44}        {c |}        {col 63}       {hline 1}{c RT}        
+{txt}9     {res}{col 9}-0.1684{col 18}-0.3024{col 27} 51.709{col 36}0.0000{col 44}       {hline 1}{c RT}        {col 63}      {hline 1}{hline 1}{c RT}        
+{txt}10    {res}{col 9} 0.0059{col 18}-0.2383{col 27} 51.723{col 36}0.0000{col 44}        {c |}        {col 63}       {hline 1}{c RT}        
+{txt}11    {res}{col 9} 0.1319{col 18}-0.1865{col 27} 58.618{col 36}0.0000{col 44}        {c LT}{hline 1}       {col 63}       {hline 1}{c RT}        
+{txt}12    {res}{col 9} 0.2163{col 18} 0.0109{col 27} 77.206{col 36}0.0000{col 44}        {c LT}{hline 1}       {col 63}        {c |}        
+{txt}13    {res}{col 9}-0.0808{col 18}-0.1194{col 27} 79.808{col 36}0.0000{col 44}        {c |}        {col 63}        {c |}        
+{txt}14    {res}{col 9}-0.0327{col 18}-0.0361{col 27} 80.235{col 36}0.0000{col 44}        {c |}        {col 63}        {c |}        
+{txt}15    {res}{col 9}-0.0246{col 18}-0.0358{col 27} 80.477{col 36}0.0000{col 44}        {c |}        {col 63}        {c |}        
+{txt}16    {res}{col 9}-0.0418{col 18}-0.0750{col 27} 81.179{col 36}0.0000{col 44}        {c |}        {col 63}        {c |}        
+{txt}17    {res}{col 9} 0.0262{col 18}-0.0183{col 27} 81.456{col 36}0.0000{col 44}        {c |}        {col 63}        {c |}        
+{txt}18    {res}{col 9}-0.0211{col 18}-0.0802{col 27} 81.635{col 36}0.0000{col 44}        {c |}        {col 63}        {c |}        
+{txt}19    {res}{col 9} 0.0563{col 18} 0.0216{col 27} 82.919{col 36}0.0000{col 44}        {c |}        {col 63}        {c |}        
+{txt}20    {res}{col 9}-0.0709{col 18}-0.0005{col 27} 84.962{col 36}0.0000{col 44}        {c |}        {col 63}        {c |}        
+{txt}21    {res}{col 9}-0.0892{col 18}-0.0487{col 27} 88.203{col 36}0.0000{col 44}        {c |}        {col 63}        {c |}        
+{txt}22    {res}{col 9}-0.0013{col 18}-0.0868{col 27} 88.203{col 36}0.0000{col 44}        {c |}        {col 63}        {c |}        
+{txt}23    {res}{col 9}-0.0644{col 18}-0.2972{col 27} 89.902{col 36}0.0000{col 44}        {c |}        {col 63}      {hline 1}{hline 1}{c RT}        
+{txt}24    {res}{col 9} 0.2249{col 18}-0.0467{col 27} 110.67{col 36}0.0000{col 44}        {c LT}{hline 1}       {col 63}        {c |}        
+
+{com}. 
+. ac dinflation, lags(24)
+{res}
+{com}. 
+. pac dinflation, lags(24)
+{res}
+{com}. 
+. arima dinflation if Month<=tm(2015m12), arima(0,0,4)
+
+{txt}(setting optimization to BHHH)
+{res}{txt}Iteration 0:{col 16}log likelihood = {res}-57.458129{txt}  
+{res}{txt}Iteration 1:{col 16}log likelihood = {res}-56.112748{txt}  
+{res}{txt}Iteration 2:{col 16}log likelihood = {res}-54.675909{txt}  
+{res}{txt}Iteration 3:{col 16}log likelihood = {res}-54.637526{txt}  
+{res}{txt}Iteration 4:{col 16}log likelihood = {res}-54.464042{txt}  
+{res}{txt}(switching optimization to BFGS)
+{res}{txt}Iteration 5:{col 16}log likelihood = {res}-53.959358{txt}  
+{res}{txt}Iteration 6:{col 16}log likelihood = {res}-53.550726{txt}  
+{res}{txt}Iteration 7:{col 16}log likelihood = {res}-53.475778{txt}  
+{res}{txt}Iteration 8:{col 16}log likelihood = {res}-53.447452{txt}  
+{res}{txt}Iteration 9:{col 16}log likelihood = {res}-53.433205{txt}  
+{res}{txt}Iteration 10:{col 16}log likelihood = {res}-53.428576{txt}  
+{res}{txt}Iteration 11:{col 16}log likelihood = {res}-53.427639{txt}  
+{res}{txt}Iteration 12:{col 16}log likelihood = {res}-53.427413{txt}  
+{res}{txt}Iteration 13:{col 16}log likelihood = {res}-53.427403{txt}  
+{res}{txt}Iteration 14:{col 16}log likelihood = {res}-53.427403{txt}  
+{res}
+{txt}ARIMA regression
+
+Sample:  {res}1986m5 - 2015m12                       {txt}Number of obs     = {res}       356
+                                                {txt}Wald chi2({res}4{txt})      =  {res}    18.93
+{txt}Log likelihood = {res} -53.4274                      {txt}Prob > chi2       =     {res}0.0008
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}      OPG
+{col 1}  dinflation{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}dinflation   {txt}{c |}
+{space 7}_cons {c |}{col 14}{res}{space 2}  -.00065{col 26}{space 2} .0002746{col 37}{space 1}   -2.37{col 46}{space 3}0.018{col 54}{space 4}-.0011882{col 67}{space 3}-.0001117
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}ARMA         {txt}{c |}
+{space 10}ma {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-.4565255{col 26}{space 2} 1339.022{col 37}{space 1}   -0.00{col 46}{space 3}1.000{col 54}{space 4}-2624.891{col 67}{space 3} 2623.978
+{txt}{space 9}L2. {c |}{col 14}{res}{space 2}-.4174111{col 26}{space 2} 727.7246{col 37}{space 1}   -0.00{col 46}{space 3}1.000{col 54}{space 4}-1426.731{col 67}{space 3} 1425.897
+{txt}{space 9}L3. {c |}{col 14}{res}{space 2}-.2062816{col 26}{space 2}  168.805{col 37}{space 1}   -0.00{col 46}{space 3}0.999{col 54}{space 4} -331.058{col 67}{space 3} 330.6455
+{txt}{space 9}L4. {c |}{col 14}{res}{space 2} .0802183{col 26}{space 2} 107.4096{col 37}{space 1}    0.00{col 46}{space 3}0.999{col 54}{space 4}-210.4388{col 67}{space 3} 210.5993
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+      /sigma {c |}{col 14}{res}{space 2} .2790708{col 26}{space 2} 186.8429{col 37}{space 1}    0.00{col 46}{space 3}0.499{col 54}{space 4}        0{col 67}{space 3} 366.4844
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 0 79}Note: The test of the variance against zero is one sided, and the two-sided confidence interval is truncated at zero.{p_end}
+
+{com}. 
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+{txt}{hline 13}{c TT}{hline 63}
+       Model {c |}        Obs  ll(null)  ll(model)      df         AIC        BIC
+{hline 13}{c +}{hline 63}
+{ralign 12:.}{col 14}{c |}{res}{col 16}       356{col 27}        .{col 38} -53.4274{col 49}     6{col 58} 118.8548{col 69} 142.1044
+{txt}{hline 13}{c BT}{hline 63}
+{p 15 21 2}
+Note: N=Obs used in calculating BIC; see {helpb bic_note:[R] BIC note}.
+{p_end}
+
+{com}. 
+. arima dinflation if Month<=tm(2015m12), arima(0,0,2)
+
+{txt}(setting optimization to BHHH)
+{res}{txt}Iteration 0:{col 16}log likelihood = {res} -67.04806{txt}  
+{res}{txt}Iteration 1:{col 16}log likelihood = {res}-59.373171{txt}  
+{res}{txt}Iteration 2:{col 16}log likelihood = {res}-59.272822{txt}  
+{res}{txt}Iteration 3:{col 16}log likelihood = {res}-58.994156{txt}  
+{res}{txt}Iteration 4:{col 16}log likelihood = {res}-58.931841{txt}  
+{res}{txt}(switching optimization to BFGS)
+{res}{txt}Iteration 5:{col 16}log likelihood = {res}-58.922938{txt}  (backed up)
+{res}{txt}Iteration 6:{col 16}log likelihood = {res}-58.540857{txt}  
+{res}{txt}Iteration 7:{col 16}log likelihood = {res}-58.478533{txt}  
+{res}{txt}Iteration 8:{col 16}log likelihood = {res}-58.466667{txt}  
+{res}{txt}Iteration 9:{col 16}log likelihood = {res}-58.466567{txt}  
+{res}{txt}Iteration 10:{col 16}log likelihood = {res}-58.466564{txt}  
+{res}
+{txt}ARIMA regression
+
+Sample:  {res}1986m5 - 2015m12                       {txt}Number of obs     = {res}       356
+                                                {txt}Wald chi2({res}1{txt})      =  {res}    91.70
+{txt}Log likelihood = {res}-58.46656                      {txt}Prob > chi2       =     {res}0.0000
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}      OPG
+{col 1}  dinflation{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}dinflation   {txt}{c |}
+{space 7}_cons {c |}{col 14}{res}{space 2}-.0006531{col 26}{space 2} .0001928{col 37}{space 1}   -3.39{col 46}{space 3}0.001{col 54}{space 4}-.0010309{col 67}{space 3}-.0002753
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}ARMA         {txt}{c |}
+{space 10}ma {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-.5238299{col 26}{space 2}        .{col 37}{space 1}       .{col 46}{space 3}    .{col 54}{space 4}        .{col 67}{space 3}        .
+{txt}{space 9}L2. {c |}{col 14}{res}{space 2}-.4761701{col 26}{space 2} .0497249{col 37}{space 1}   -9.58{col 46}{space 3}0.000{col 54}{space 4}-.5736291{col 67}{space 3}-.3787111
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+      /sigma {c |}{col 14}{res}{space 2} .2830227{col 26}{space 2} .0104165{col 37}{space 1}   27.17{col 46}{space 3}0.000{col 54}{space 4} .2626066{col 67}{space 3} .3034387
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 0 79}Note: The test of the variance against zero is one sided, and the two-sided confidence interval is truncated at zero.{p_end}
+
+{com}. 
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+{txt}{hline 13}{c TT}{hline 63}
+       Model {c |}        Obs  ll(null)  ll(model)      df         AIC        BIC
+{hline 13}{c +}{hline 63}
+{ralign 12:.}{col 14}{c |}{res}{col 16}       356{col 27}        .{col 38}-58.46656{col 49}     3{col 58} 122.9331{col 69} 134.5579
+{txt}{hline 13}{c BT}{hline 63}
+{p 15 21 2}
+Note: N=Obs used in calculating BIC; see {helpb bic_note:[R] BIC note}.
+{p_end}
+
+{com}. 
+. arima dinflation if Month<=tm(2015m12), arima(0,0,3)
+
+{txt}(setting optimization to BHHH)
+{res}{txt}Iteration 0:{col 16}log likelihood = {res} -57.43614{txt}  
+{res}{txt}Iteration 1:{col 16}log likelihood = {res}-56.595496{txt}  
+{res}{txt}Iteration 2:{col 16}log likelihood = {res}-55.444221{txt}  
+{res}{txt}Iteration 3:{col 16}log likelihood = {res}-55.429629{txt}  
+{res}{txt}Iteration 4:{col 16}log likelihood = {res}-55.127019{txt}  
+{res}{txt}(switching optimization to BFGS)
+{res}{txt}Iteration 5:{col 16}log likelihood = {res}-54.636931{txt}  
+{res}{txt}Iteration 6:{col 16}log likelihood = {res}-54.340566{txt}  
+{res}{txt}Iteration 7:{col 16}log likelihood = {res}  -54.2977{txt}  
+{res}{txt}Iteration 8:{col 16}log likelihood = {res}-54.290289{txt}  
+{res}{txt}Iteration 9:{col 16}log likelihood = {res}-54.287516{txt}  
+{res}{txt}Iteration 10:{col 16}log likelihood = {res}-54.286535{txt}  
+{res}{txt}Iteration 11:{col 16}log likelihood = {res}-54.286473{txt}  
+{res}{txt}Iteration 12:{col 16}log likelihood = {res}-54.286472{txt}  
+{res}
+{txt}ARIMA regression
+
+Sample:  {res}1986m5 - 2015m12                       {txt}Number of obs     = {res}       356
+                                                {txt}Wald chi2({res}3{txt})      =  {res}    11.54
+{txt}Log likelihood = {res}-54.28647                      {txt}Prob > chi2       =     {res}0.0091
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}      OPG
+{col 1}  dinflation{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}dinflation   {txt}{c |}
+{space 7}_cons {c |}{col 14}{res}{space 2}-.0006501{col 26}{space 2} .0002951{col 37}{space 1}   -2.20{col 46}{space 3}0.028{col 54}{space 4}-.0012285{col 67}{space 3}-.0000717
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}ARMA         {txt}{c |}
+{space 10}ma {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-.4348065{col 26}{space 2}  205.165{col 37}{space 1}   -0.00{col 46}{space 3}0.998{col 54}{space 4}-402.5509{col 67}{space 3} 401.6813
+{txt}{space 9}L2. {c |}{col 14}{res}{space 2}-.3945541{col 26}{space 2} 115.9559{col 37}{space 1}   -0.00{col 46}{space 3}0.997{col 54}{space 4}-227.6639{col 67}{space 3} 226.8748
+{txt}{space 9}L3. {c |}{col 14}{res}{space 2}-.1706403{col 26}{space 2} 35.00174{col 37}{space 1}   -0.00{col 46}{space 3}0.996{col 54}{space 4}-68.77278{col 67}{space 3}  68.4315
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+      /sigma {c |}{col 14}{res}{space 2} .2798171{col 26}{space 2} 28.70272{col 37}{space 1}    0.01{col 46}{space 3}0.496{col 54}{space 4}        0{col 67}{space 3} 56.53612
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 0 79}Note: The test of the variance against zero is one sided, and the two-sided confidence interval is truncated at zero.{p_end}
+
+{com}. 
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+{txt}{hline 13}{c TT}{hline 63}
+       Model {c |}        Obs  ll(null)  ll(model)      df         AIC        BIC
+{hline 13}{c +}{hline 63}
+{ralign 12:.}{col 14}{c |}{res}{col 16}       356{col 27}        .{col 38}-54.28647{col 49}     5{col 58} 118.5729{col 69} 137.9476
+{txt}{hline 13}{c BT}{hline 63}
+{p 15 21 2}
+Note: N=Obs used in calculating BIC; see {helpb bic_note:[R] BIC note}.
+{p_end}
+
+{com}. 
+. arima dinflation if Month<=tm(2015m12), arima(1,0,1)
+
+{txt}(setting optimization to BHHH)
+{res}{txt}Iteration 0:{col 16}log likelihood = {res}-77.226619{txt}  
+{res}{txt}Iteration 1:{col 16}log likelihood = {res}-64.816699{txt}  
+{res}{txt}Iteration 2:{col 16}log likelihood = {res}-63.645944{txt}  
+{res}{txt}Iteration 3:{col 16}log likelihood = {res}-63.604562{txt}  (backed up)
+{res}{txt}Iteration 4:{col 16}log likelihood = {res}-63.598926{txt}  (backed up)
+{res}{txt}(switching optimization to BFGS)
+{res}{txt}Iteration 5:{col 16}log likelihood = {res}-63.519986{txt}  
+{res}{txt}Iteration 6:{col 16}log likelihood = {res}-62.102988{txt}  
+{res}{txt}Iteration 7:{col 16}log likelihood = {res}-61.744966{txt}  
+{res}{txt}Iteration 8:{col 16}log likelihood = {res}-61.650986{txt}  
+{res}{txt}Iteration 9:{col 16}log likelihood = {res}-61.640404{txt}  
+{res}{txt}Iteration 10:{col 16}log likelihood = {res}-61.639103{txt}  
+{res}{txt}Iteration 11:{col 16}log likelihood = {res}-61.639055{txt}  
+{res}{txt}Iteration 12:{col 16}log likelihood = {res}-61.639054{txt}  
+{res}
+{txt}ARIMA regression
+
+Sample:  {res}1986m5 - 2015m12                       {txt}Number of obs     = {res}       356
+                                                {txt}Wald chi2({res}1{txt})      =  {res}   196.59
+{txt}Log likelihood = {res}-61.63905                      {txt}Prob > chi2       =     {res}0.0000
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}      OPG
+{col 1}  dinflation{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}dinflation   {txt}{c |}
+{space 7}_cons {c |}{col 14}{res}{space 2}-.0006526{col 26}{space 2} .0002431{col 37}{space 1}   -2.68{col 46}{space 3}0.007{col 54}{space 4}-.0011291{col 67}{space 3} -.000176
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}ARMA         {txt}{c |}
+{space 10}ar {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .4601778{col 26}{space 2} .0328204{col 37}{space 1}   14.02{col 46}{space 3}0.000{col 54}{space 4}  .395851{col 67}{space 3} .5245046
+{txt}{space 12} {c |}
+{space 10}ma {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}       -1{col 26}{space 2}        .{col 37}{space 1}       .{col 46}{space 3}    .{col 54}{space 4}        .{col 67}{space 3}        .
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+      /sigma {c |}{col 14}{res}{space 2} .2857438{col 26}{space 2} .0073598{col 37}{space 1}   38.82{col 46}{space 3}0.000{col 54}{space 4} .2713189{col 67}{space 3} .3001688
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 0 79}Note: The test of the variance against zero is one sided, and the two-sided confidence interval is truncated at zero.{p_end}
+
+{com}. 
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+{txt}{hline 13}{c TT}{hline 63}
+       Model {c |}        Obs  ll(null)  ll(model)      df         AIC        BIC
+{hline 13}{c +}{hline 63}
+{ralign 12:.}{col 14}{c |}{res}{col 16}       356{col 27}        .{col 38}-61.63905{col 49}     3{col 58} 129.2781{col 69} 140.9029
+{txt}{hline 13}{c BT}{hline 63}
+{p 15 21 2}
+Note: N=Obs used in calculating BIC; see {helpb bic_note:[R] BIC note}.
+{p_end}
+
+{com}. 
+. arima dinflation if Month<=tm(2015m12), arima(2,0,2)
+
+{txt}(setting optimization to BHHH)
+{res}{txt}Iteration 0:{col 16}log likelihood = {res}-66.719469{txt}  
+{res}{txt}Iteration 1:{col 16}log likelihood = {res}-56.050717{txt}  
+{res}{txt}Iteration 2:{col 16}log likelihood = {res}-55.572568{txt}  
+{res}{txt}Iteration 3:{col 16}log likelihood = {res}-55.152143{txt}  
+{res}{txt}Iteration 4:{col 16}log likelihood = {res}-53.393639{txt}  
+{res}{txt}(switching optimization to BFGS)
+{res}{txt}Iteration 5:{col 16}log likelihood = {res}-53.374951{txt}  
+{res}{txt}Iteration 6:{col 16}log likelihood = {res}-51.498676{txt}  
+{res}{txt}Iteration 7:{col 16}log likelihood = {res}-51.461709{txt}  
+{res}{txt}Iteration 8:{col 16}log likelihood = {res}-50.986751{txt}  
+{res}{txt}Iteration 9:{col 16}log likelihood = {res}-50.863171{txt}  
+{res}{txt}Iteration 10:{col 16}log likelihood = {res}-50.786662{txt}  
+{res}{txt}Iteration 11:{col 16}log likelihood = {res} -50.58917{txt}  
+{res}{txt}Iteration 12:{col 16}log likelihood = {res}-50.563493{txt}  
+{res}{txt}Iteration 13:{col 16}log likelihood = {res} -50.56209{txt}  
+{res}{txt}Iteration 14:{col 16}log likelihood = {res}-50.557862{txt}  
+{res}{txt}(switching optimization to BHHH)
+{res}{txt}Iteration 15:{col 16}log likelihood = {res}-50.557359{txt}  
+{res}{txt}Iteration 16:{col 16}log likelihood = {res}-50.557288{txt}  (backed up)
+{res}{txt}Iteration 17:{col 16}log likelihood = {res} -50.55724{txt}  (backed up)
+{res}{txt}Iteration 18:{col 16}log likelihood = {res}-50.557207{txt}  (backed up)
+{res}{txt}Iteration 19:{col 16}log likelihood = {res}-50.557207{txt}  (not concave)
+{res}{txt}(switching optimization to BFGS)
+{res}{txt}Iteration 20:{col 16}log likelihood = {res}-50.557192{txt}  
+{res}{txt}Iteration 21:{col 16}log likelihood = {res}-50.557158{txt}  
+{res}{txt}Iteration 22:{col 16}log likelihood = {res}-50.557138{txt}  
+{res}{txt}Iteration 23:{col 16}log likelihood = {res}-50.557126{txt}  
+{res}{txt}Iteration 24:{col 16}log likelihood = {res} -50.55712{txt}  
+{res}{txt}Iteration 25:{col 16}log likelihood = {res}-50.557119{txt}  
+{res}
+{txt}ARIMA regression
+
+Sample:  {res}1986m5 - 2015m12                       {txt}Number of obs     = {res}       356
+                                                {txt}Wald chi2({res}4{txt})      =  {res}  8303.37
+{txt}Log likelihood = {res}-50.55712                      {txt}Prob > chi2       =     {res}0.0000
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}      OPG
+{col 1}  dinflation{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}dinflation   {txt}{c |}
+{space 7}_cons {c |}{col 14}{res}{space 2}-.0006461{col 26}{space 2} .0001733{col 37}{space 1}   -3.73{col 46}{space 3}0.000{col 54}{space 4}-.0009858{col 67}{space 3}-.0003064
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}ARMA         {txt}{c |}
+{space 10}ar {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} 1.191161{col 26}{space 2} .0815515{col 37}{space 1}   14.61{col 46}{space 3}0.000{col 54}{space 4} 1.031322{col 67}{space 3} 1.350999
+{txt}{space 9}L2. {c |}{col 14}{res}{space 2}-.4820801{col 26}{space 2}  .044799{col 37}{space 1}  -10.76{col 46}{space 3}0.000{col 54}{space 4}-.5698846{col 67}{space 3}-.3942757
+{txt}{space 12} {c |}
+{space 10}ma {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-1.693862{col 26}{space 2} 34.54011{col 37}{space 1}   -0.05{col 46}{space 3}0.961{col 54}{space 4}-69.39124{col 67}{space 3} 66.00352
+{txt}{space 9}L2. {c |}{col 14}{res}{space 2} .6938625{col 26}{space 2} 23.95629{col 37}{space 1}    0.03{col 46}{space 3}0.977{col 54}{space 4} -46.2596{col 67}{space 3} 47.64733
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+      /sigma {c |}{col 14}{res}{space 2} .2764743{col 26}{space 2} 4.779649{col 37}{space 1}    0.06{col 46}{space 3}0.477{col 54}{space 4}        0{col 67}{space 3} 9.644413
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 0 79}Note: The test of the variance against zero is one sided, and the two-sided confidence interval is truncated at zero.{p_end}
+
+{com}. 
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+{txt}{hline 13}{c TT}{hline 63}
+       Model {c |}        Obs  ll(null)  ll(model)      df         AIC        BIC
+{hline 13}{c +}{hline 63}
+{ralign 12:.}{col 14}{c |}{res}{col 16}       356{col 27}        .{col 38}-50.55712{col 49}     6{col 58} 113.1142{col 69} 136.3638
+{txt}{hline 13}{c BT}{hline 63}
+{p 15 21 2}
+Note: N=Obs used in calculating BIC; see {helpb bic_note:[R] BIC note}.
+{p_end}
+
+{com}. 
+. arima dinflation if Month<=tm(2015m12), arima(3,0,2)
+
+{txt}(setting optimization to BHHH)
+{res}{txt}Iteration 0:{col 16}log likelihood = {res}-68.359351{txt}  
+{res}{txt}Iteration 1:{col 16}log likelihood = {res}-55.972164{txt}  
+{res}{txt}Iteration 2:{col 16}log likelihood = {res}-53.537688{txt}  
+{res}{txt}Iteration 3:{col 16}log likelihood = {res}-53.437798{txt}  
+{res}{txt}Iteration 4:{col 16}log likelihood = {res}-51.471245{txt}  
+{res}{txt}(switching optimization to BFGS)
+{res}{txt}Iteration 5:{col 16}log likelihood = {res}-50.506958{txt}  
+{res}{txt}Iteration 6:{col 16}log likelihood = {res}-50.265108{txt}  
+{res}{txt}Iteration 7:{col 16}log likelihood = {res}-50.096218{txt}  
+{res}{txt}Iteration 8:{col 16}log likelihood = {res}-50.045356{txt}  
+{res}{txt}Iteration 9:{col 16}log likelihood = {res}-49.930489{txt}  
+{res}{txt}Iteration 10:{col 16}log likelihood = {res}-49.908629{txt}  
+{res}{txt}Iteration 11:{col 16}log likelihood = {res}-49.900144{txt}  
+{res}{txt}Iteration 12:{col 16}log likelihood = {res}-49.899515{txt}  
+{res}{txt}Iteration 13:{col 16}log likelihood = {res}-49.899475{txt}  
+{res}{txt}Iteration 14:{col 16}log likelihood = {res}-49.899472{txt}  
+{res}{txt}(switching optimization to BHHH)
+{res}{txt}Iteration 15:{col 16}log likelihood = {res}-49.899471{txt}  
+{res}{txt}Iteration 16:{col 16}log likelihood = {res}-49.899471{txt}  (backed up)
+{res}{txt}Iteration 17:{col 16}log likelihood = {res}-49.899471{txt}  (not concave)
+{res}{txt}Iteration 18:{col 16}log likelihood = {res}-49.899471{txt}  (not concave)
+{res}{txt}Iteration 19:{col 16}log likelihood = {res}-49.899471{txt}  (not concave)
+{res}{txt}(switching optimization to BFGS)
+{res}{txt}Iteration 20:{col 16}log likelihood = {res}-49.899471{txt}  
+{res}
+{txt}ARIMA regression
+
+Sample:  {res}1986m5 - 2015m12                       {txt}Number of obs     = {res}       356
+                                                {txt}Wald chi2({res}4{txt})      =  {res}  5121.78
+{txt}Log likelihood = {res}-49.89947                      {txt}Prob > chi2       =     {res}0.0000
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}      OPG
+{col 1}  dinflation{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}dinflation   {txt}{c |}
+{space 7}_cons {c |}{col 14}{res}{space 2}-.0006465{col 26}{space 2} .0001476{col 37}{space 1}   -4.38{col 46}{space 3}0.000{col 54}{space 4}-.0009359{col 67}{space 3}-.0003572
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}ARMA         {txt}{c |}
+{space 10}ar {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} 1.286767{col 26}{space 2} .1396849{col 37}{space 1}    9.21{col 46}{space 3}0.000{col 54}{space 4}  1.01299{col 67}{space 3} 1.560545
+{txt}{space 9}L2. {c |}{col 14}{res}{space 2}-.5854667{col 26}{space 2} .0981295{col 37}{space 1}   -5.97{col 46}{space 3}0.000{col 54}{space 4} -.777797{col 67}{space 3}-.3931365
+{txt}{space 9}L3. {c |}{col 14}{res}{space 2} .0734142{col 26}{space 2} .0655134{col 37}{space 1}    1.12{col 46}{space 3}0.262{col 54}{space 4}-.0549896{col 67}{space 3} .2018181
+{txt}{space 12} {c |}
+{space 10}ma {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-1.765395{col 26}{space 2}        .{col 37}{space 1}       .{col 46}{space 3}    .{col 54}{space 4}        .{col 67}{space 3}        .
+{txt}{space 9}L2. {c |}{col 14}{res}{space 2} .7653951{col 26}{space 2} .0345495{col 37}{space 1}   22.15{col 46}{space 3}0.000{col 54}{space 4} .6976793{col 67}{space 3} .8331109
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+      /sigma {c |}{col 14}{res}{space 2} .2759637{col 26}{space 2} .0206068{col 37}{space 1}   13.39{col 46}{space 3}0.000{col 54}{space 4} .2355751{col 67}{space 3} .3163522
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 0 79}Note: The test of the variance against zero is one sided, and the two-sided confidence interval is truncated at zero.{p_end}
+
+{com}. 
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+{txt}{hline 13}{c TT}{hline 63}
+       Model {c |}        Obs  ll(null)  ll(model)      df         AIC        BIC
+{hline 13}{c +}{hline 63}
+{ralign 12:.}{col 14}{c |}{res}{col 16}       356{col 27}        .{col 38}-49.89947{col 49}     6{col 58} 111.7989{col 69} 135.0485
+{txt}{hline 13}{c BT}{hline 63}
+{p 15 21 2}
+Note: N=Obs used in calculating BIC; see {helpb bic_note:[R] BIC note}.
+{p_end}
+
+{com}. 
+. arima dinflation if Month<=tm(2015m12), arima(2,0,3)
+
+{txt}(setting optimization to BHHH)
+{res}{txt}Iteration 0:{col 16}log likelihood = {res}-59.356744{txt}  
+{res}{txt}Iteration 1:{col 16}log likelihood = {res}-57.197204{txt}  
+{res}{txt}Iteration 2:{col 16}log likelihood = {res}-55.374039{txt}  
+{res}{txt}Iteration 3:{col 16}log likelihood = {res}-55.166349{txt}  
+{res}{txt}Iteration 4:{col 16}log likelihood = {res}-54.168141{txt}  
+{res}{txt}(switching optimization to BFGS)
+{res}{txt}Iteration 5:{col 16}log likelihood = {res}-53.787503{txt}  
+{res}{txt}Iteration 6:{col 16}log likelihood = {res}-53.287703{txt}  
+{res}{txt}Iteration 7:{col 16}log likelihood = {res} -53.21064{txt}  
+{res}{txt}Iteration 8:{col 16}log likelihood = {res}-53.188702{txt}  
+{res}{txt}Iteration 9:{col 16}log likelihood = {res}-53.174254{txt}  
+{res}{txt}Iteration 10:{col 16}log likelihood = {res}-53.168138{txt}  
+{res}{txt}Iteration 11:{col 16}log likelihood = {res}-52.524339{txt}  
+{res}{txt}Iteration 12:{col 16}log likelihood = {res}-52.524339{txt}  (backed up)
+{res}{txt}Iteration 13:{col 16}log likelihood = {res}-52.434909{txt}  
+{res}{txt}Iteration 14:{col 16}log likelihood = {res}-52.434909{txt}  (backed up)
+{res}{txt}(switching optimization to BHHH)
+{res}{txt}Iteration 15:{col 16}log likelihood = {res}-52.428085{txt}  (backed up)
+{res}{txt}Iteration 16:{col 16}log likelihood = {res}-51.909851{txt}  
+{res}{txt}Iteration 17:{col 16}log likelihood = {res}-50.387225{txt}  
+{res}{txt}Iteration 18:{col 16}log likelihood = {res}-50.124402{txt}  
+{res}{txt}Iteration 19:{col 16}log likelihood = {res}-50.109391{txt}  
+{res}{txt}(switching optimization to BFGS)
+{res}{txt}Iteration 20:{col 16}log likelihood = {res}-50.109192{txt}  (backed up)
+{res}{txt}Iteration 21:{col 16}log likelihood = {res}-49.955672{txt}  
+{res}{txt}Iteration 22:{col 16}log likelihood = {res}-49.903976{txt}  
+{res}{txt}Iteration 23:{col 16}log likelihood = {res}-49.864931{txt}  
+{res}{txt}Iteration 24:{col 16}log likelihood = {res}-49.853802{txt}  
+{res}{txt}Iteration 25:{col 16}log likelihood = {res}-49.850267{txt}  
+{res}{txt}Iteration 26:{col 16}log likelihood = {res}-49.850256{txt}  
+{res}{txt}Iteration 27:{col 16}log likelihood = {res}-49.850255{txt}  
+{res}{txt}Iteration 28:{col 16}log likelihood = {res}-49.850255{txt}  
+{res}
+{txt}ARIMA regression
+
+Sample:  {res}1986m5 - 2015m12                       {txt}Number of obs     = {res}       356
+                                                {txt}Wald chi2({res}4{txt})      =  {res}  1862.74
+{txt}Log likelihood = {res}-49.85026                      {txt}Prob > chi2       =     {res}0.0000
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}      OPG
+{col 1}  dinflation{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}dinflation   {txt}{c |}
+{space 7}_cons {c |}{col 14}{res}{space 2}-.0006466{col 26}{space 2} .0001474{col 37}{space 1}   -4.39{col 46}{space 3}0.000{col 54}{space 4}-.0009354{col 67}{space 3}-.0003578
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}ARMA         {txt}{c |}
+{space 10}ar {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} 1.134788{col 26}{space 2} .0817775{col 37}{space 1}   13.88{col 46}{space 3}0.000{col 54}{space 4} .9745068{col 67}{space 3} 1.295069
+{txt}{space 9}L2. {c |}{col 14}{res}{space 2}-.4009653{col 26}{space 2}  .086367{col 37}{space 1}   -4.64{col 46}{space 3}0.000{col 54}{space 4}-.5702415{col 67}{space 3}-.2316891
+{txt}{space 12} {c |}
+{space 10}ma {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-1.612375{col 26}{space 2}        .{col 37}{space 1}       .{col 46}{space 3}    .{col 54}{space 4}        .{col 67}{space 3}        .
+{txt}{space 9}L2. {c |}{col 14}{res}{space 2} .5012319{col 26}{space 2} .1023514{col 37}{space 1}    4.90{col 46}{space 3}0.000{col 54}{space 4} .3006268{col 67}{space 3}  .701837
+{txt}{space 9}L3. {c |}{col 14}{res}{space 2} .1111432{col 26}{space 2}  .092836{col 37}{space 1}    1.20{col 46}{space 3}0.231{col 54}{space 4}-.0708121{col 67}{space 3} .2930984
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+      /sigma {c |}{col 14}{res}{space 2} .2759232{col 26}{space 2} .0148528{col 37}{space 1}   18.58{col 46}{space 3}0.000{col 54}{space 4} .2468122{col 67}{space 3} .3050342
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 0 79}Note: The test of the variance against zero is one sided, and the two-sided confidence interval is truncated at zero.{p_end}
+
+{com}. 
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+{txt}{hline 13}{c TT}{hline 63}
+       Model {c |}        Obs  ll(null)  ll(model)      df         AIC        BIC
+{hline 13}{c +}{hline 63}
+{ralign 12:.}{col 14}{c |}{res}{col 16}       356{col 27}        .{col 38}-49.85026{col 49}     6{col 58} 111.7005{col 69} 134.9501
+{txt}{hline 13}{c BT}{hline 63}
+{p 15 21 2}
+Note: N=Obs used in calculating BIC; see {helpb bic_note:[R] BIC note}.
+{p_end}
+
+{com}. 
+. estat aroots
+{res}
+{txt}{col 4}Eigenvalue stability condition
+{col 3}{text}{c TLC}{hline 26}{c TT}{hline 13}{c TRC}
+{col 3}{text}{c |}        Eigenvalue       {col 30}{c |}   Modulus  {col 44}{c |}
+{res}{col 3}{text}{c LT}{hline 26}{c +}{hline 13}{c RT}
+{col 3}{text}{c |}{result}{space 1}  .5673939{col 16}+  .2811218{it:i}{col 30}{text}{c |}{result}{space 2} .633218{col 44}{text}{c |}
+{res}{col 3}{text}{c |}{result}{space 1}  .5673939{col 16}-  .2811218{it:i}{col 30}{text}{c |}{result}{space 2} .633218{col 44}{text}{c |}
+{res}{col 3}{text}{c BLC}{hline 26}{c BT}{hline 13}{c BRC}
+{res}{txt}{col 4}All the eigenvalues lie inside the unit circle.
+{col 4}AR parameters satisfy stability condition.
+{res}
+{txt}{col 4}Eigenvalue stability condition
+{col 3}{text}{c TLC}{hline 26}{c TT}{hline 13}{c TRC}
+{col 3}{text}{c |}        Eigenvalue       {col 30}{c |}   Modulus  {col 44}{c |}
+{res}{col 3}{text}{c LT}{hline 26}{c +}{hline 13}{c RT}
+{col 3}{text}{c |}{result}{space 1}         1{col 30}{text}{c |}{result}{space 2}       1{col 44}{text}{c |}
+{res}{col 3}{text}{c |}{result}{space 1}  .7588396{col 30}{text}{c |}{result}{space 2}  .75884{col 44}{text}{c |}
+{res}{col 3}{text}{c |}{result}{space 1} -.1464646{col 30}{text}{c |}{result}{space 2} .146465{col 44}{text}{c |}
+{res}{col 3}{text}{c BLC}{hline 26}{c BT}{hline 13}{c BRC}
+{res}{txt}{col 4}At least one eigenvalue is at least 1.0.
+{col 4}MA parameters do not satisfy invertibility condition.
+{res}
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}G:\ECON803\Assignment4\Assignment4.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 7 Oct 2019, 15:23:10
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
