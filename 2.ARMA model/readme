@@ -1,0 +1,6 @@
+**Objective:** 
+1. To estimate ARMA models of the price level (measured by CPI), inflation rate and the change in the inflation rate. 
+2. Generate forecasts of inflation using your fitted model.
+
+**Data:**
+CPI dataset from Mar 1986 - Mar 2018
