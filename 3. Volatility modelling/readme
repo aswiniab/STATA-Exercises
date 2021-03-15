@@ -1,0 +1,7 @@
+Objective:
+To model volatility of the market.
+
+Data: (Aug 2010 - Nov 2019) 
+- S&P 500 index rate  
+- implied volatility of at-the-money 1 month call options 
+- annualized historical volatility of S&P 500 calculated over 1 month
